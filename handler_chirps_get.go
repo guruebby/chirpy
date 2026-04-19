@@ -48,4 +48,4 @@ func (cfg *apiConfig) handlerChirpRetrieve(w http.ResponseWriter, r *http.Reques
 		Body:	   dbChirp.Body,
 		UserID:	   dbChirp.UserID,
 	})
-} 
+}
