@@ -8,7 +8,7 @@ import (
 	"github.com/guruebby/chirpy/internal/database"
 )
 
-func (cfg *apiConfig) handlerUpdateUser(w http.ResponseWriter, r *http.Request) {
+func (cfg *apiConfig) handlerUsersUpdate(w http.ResponseWriter, r *http.Request) {
 	type parameters struct {
 		Email    string `json:"email"`
 		Password string `json:"password"`
@@ -43,20 +43,20 @@ func (cfg *apiConfig) handlerUpdateUser(w http.ResponseWriter, r *http.Request) 
 	}
 
 	user, err := cfg.db.UpdateUser(r.Context(), database.UpdateUserParams{
-		Email:		params.Email,
+		Email:          params.Email,
 		HashedPassword: hash,
-		ID:		userID,
+		ID:             userID,
 	})
 	if err != nil {
 		respondWithError(w, http.StatusInternalServerError, "Couldn't update user", err)
-                return
+		return
 	}
 	respondWithJSON(w, http.StatusOK, response{
 		User: User{
-			ID:	   user.ID,
+			ID:        user.ID,
 			CreatedAt: user.CreatedAt,
 			UpdatedAt: user.UpdatedAt,
-			Email:	   user.Email,
+			Email:     user.Email,
 		},
 	})
 }
